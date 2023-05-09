@@ -81,9 +81,38 @@ print(arr) -->
 
 
 
+<!-- SelectionSortBegin
+
+arr=[]
+#insertion
+
+while (True):
+    number = int (input("Enter number : "))
+    if (number > 10 and number < 20):        
+        arr.append(number)
+    else:
+        print("Invalid number")
+
+    if(number == -1):
+        break
+
+print(arr)
 
 
+def selectionSort(A):
+    n = len(arr)
+    for j in range(0,n):
+        min = j
+        for i in range(j+1,n):
+            if(A[i]<A[min]):
+               A[i], A[min] =  A[min],A[i]
+            
 
+selectionSort(arr)
+print(arr)
+
+
+SelectionSortEnd -->
 
 
 
