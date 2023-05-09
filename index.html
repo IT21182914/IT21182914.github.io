@@ -83,33 +83,31 @@ print(arr) -->
 
 <!-- SelectionSortBegin
 
-arr=[]
-#insertion
+A = []
 
-while (True):
-    number = int (input("Enter number : "))
-    if (number > 10 and number < 20):        
-        arr.append(number)
-    else:
-        print("Invalid number")
+for k in range(3):
+      A.append (int(input("Enter a number: ")))
 
-    if(number == -1):
-        break
+    
 
-print(arr)
+print(A)
 
 
-def selectionSort(A):
-    n = len(arr)
-    for j in range(0,n):
-        min = j
-        for i in range(j+1,n):
-            if(A[i]<A[min]):
-               A[i], A[min] =  A[min],A[i]
-            
+def SELECTIONSORT(A):
+    n = len(A)
+    
+    for j in range(0,n-1):
+        smallest = j
+        
+        for i in range (j+1,n):            
+            if(A[i] < A[smallest]):
+                smallest = i
+            A[j],A[smallest] = A[smallest],A[j]   
+    
 
-selectionSort(arr)
-print(arr)
+    
+SELECTIONSORT(A)
+print(A)
 
 
 SelectionSortEnd -->
