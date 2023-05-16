@@ -14,268 +14,40 @@
 
 
 
-
-<!-- insertionsortBegin
-
-arr = []
-
-for i in range(0,9):
-   number  = int(input("Enter number: "))
-   if(number > 10 and number < 20):
-       arr.append(number)
-
-   else:
-       print("Invalid Input")
-
-print(arr)       
+<!-- //phone number validation to 10 number
 
 
-def INSERTIONSORT (arr):
-    for i in range(1,len(arr)):
-
-        key = arr[i]
-
-        j = i-1
-
-        while j >= 0 and key<arr[j]:
-            arr[j+1] = arr[j]
-            j=j-1
-        arr[j+1] = key    
+  // const handlePhoneChange = (e) => {
+  //   const input = e.target.value;
+  //   const sanitizedInput = input.replace(/\D/g, ''); // Remove non-digit characters
+  //   const formattedInput = sanitizedInput.slice(9); // Limit to 10 digits
+  //   setPhone(formattedInput);
+  // }; -->
 
 
-INSERTIONSORT(arr)
-print("Sorted Array " , arr)
-
-insertionsortDONE -->
 
 
-<!-- bubbleSortBegin
 
-#Bubble sort
+<!-- //You only have to do is, add --- onChange={handlePhoneChange} to the input field. I commented it below. -->
+ 
+ 
+ 
+<!-- 
+ <input
+                type="tel"
+                defaultValue={phone}
+                // onChange={handlePhoneChange}
+                className="peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-basicBlue  dark:text-neutral-500 dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]"
+                id="floatingInput"
+                placeholder=" "
+                pattern='[0-9]{10}'
+                required
 
-arr = []
+                
 
-while (True):
-    number = int (input("Enter number : "))
-    if (number > 10 and number < 20):        
-        arr.append(number)
-    else:
-        print("Invalid number")   
-        break
+              />
 
-print(arr)
-
-def bubblesort(A):
-    n = len(A)
-    for i in range(1, n):
-        for j in range(1, n-i+1):
-            if A[j] > A[j-1]:
-                A[j], A[j-1] = A[j-1], A[j]
-
-
-bubblesort(arr)
-print(arr) -->
-
-<!-- bubbleSortEnd
  -->
-
-
-
-<!-- SelectionSortBegin
-
-A = []
-
-for k in range(3):
-      A.append (int(input("Enter a number: ")))
-
-    
-
-print(A)
-
-
-def SELECTIONSORT(A):
-    n = len(A)
-    
-    for j in range(0,n-1):
-        smallest = j
-        
-        for i in range (j+1,n):            
-            if(A[i] < A[smallest]):
-                smallest = i
-            A[j],A[smallest] = A[smallest],A[j]   
-    
-
-    
-SELECTIONSORT(A)
-print(A)
-
-
-SelectionSortEnd -->
-
-
-
-
-
-
-
-
-
-
-<!-- recursionBegin
-
-def adder(num):  
-  number = int(input("Enter number"))
-  if number == -1:
-    print(num)
-  else:
-    adder(num + number)
-
-adder(0)
-
-RecursionEnd -->
-
-
-
-    
-   <!-- #bubble sort -->
-   
-<!--  a = [2,5,6,8,7,6,1,7,9,10]
-
-for i in range(0,len(a)):
-    
-    for j in range(1,len(a)-i):
-        
-        if(a[j]<a[j-1]):
-            
-            a[j],a[j-1] = a[j-1],a[j]
-
-print(a) -->
- 
-
-<!--   for i in range(0,len(a)):
-    min = a[i]
-    for j in range(i,len(a)):         
-        if(min>a[j]):
-            min = a[j]
-    a[i] = min
-  print(a)  
- -->
-
-<!-- #insertion -->
-<!--  for i in range(1,len(a)):
-    for j in range(i,-1,-1):
-        if(a[j]<a[j-1]):
-            a[j],a[j-1] = a[j-1],a[j]
-        else:
-            break
-print(a) -->
-
-
-
-
-
-
-
-
-
-
-
-<!-- #a
-
-arr = []
-
-for i in range(0,9):
-   number  = int(input("Enter number: "))
-   if(number > 10 and number < 20):
-       arr.append(number)
-
-   else:
-       print("Invalid Input")
-
-print(arr)       
-
-
-def INSERTIONSORT (arr):
-    for i in range(1,len(arr)):
-
-        key = arr[i]
-
-        j = i-1
-
-        while j >= 0 and key<arr[j]:
-            arr[j+1] = arr[j]
-            j=j-1
-        arr[j+1] = key    
-
-
-INSERTIONSORT(arr)
-print("Sorted Array " , arr) -->
-
-
-
-
-
-<!-- Bubble sort -->
-<!-- def bubblesort(elements):
-    swapped = False
-    # Looping from size of array from last index[-1] to index [0]
-    for n in range(len(elements)-1, 0, -1):
-        for i in range(n):
-            if elements[i] > elements[i + 1]:
-                swapped = True
-                # swapping data if the element is less than next element in the array
-                elements[i], elements[i + 1] = elements[i + 1], elements[i]       
-        if not swapped:
-            # exiting the function if we didn't make a single swap
-            # meaning that the array is already sorted.
-            return
- 
-elements = [39, 12, 18, 85, 72, 10, 2, 18]
- 
-print("Unsorted list is,")
-print(elements)
-bubblesort(elements)
-print("Sorted Array is, ")
-print(elements) -->
-
-
-
-
-
-
-
-
-
-
-<!-- SelectionSort -->
-
-<!-- # Selection sort in Python
-# time complexity O(n*n)
-#sorting by finding min_index
-def selectionSort(array, size):
-    
-    for ind in range(size):
-        min_index = ind
- 
-        for j in range(ind + 1, size):
-            # select the minimum element in every iteration
-            if array[j] < array[min_index]:
-                min_index = j
-         # swapping the elements to sort the array
-        (array[ind], array[min_index]) = (array[min_index], array[ind])
- 
-arr = [-2, 45, 0, 11, -9,88,-97,-202,747]
-size = len(arr)
-selectionSort(arr, size)
-print('The array after sorting in Ascending Order by selection sort is:')
-print(arr) -->
-
-
-
-
-
-
-
 
 
 
