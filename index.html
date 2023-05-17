@@ -91,6 +91,17 @@ return (
 
 //DONE -->
 
+
+
+<!-- maxLength={12} // Added maxLength attribute
+  onKeyPress={(e) => {
+    if (!/\d|\+/.test(e.key) || e.target.value.length >= 12) {
+      e.preventDefault();
+    }
+  }} -->
+
+
+
 </code>
     </pre>
 </body>
