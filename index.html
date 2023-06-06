@@ -12,6 +12,206 @@
 <code>
 
 
+
+*********Create a data class for the User entity**********
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "users")
+data class User(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val firstName: String,
+    val lastName: String,
+    val email: String,
+    val contactNumber: String,
+    val password: String
+)
+
+*********Data Class Done**********
+
+
+
+******Create a UserDao interface for database operations******
+
+import androidx.room.*
+
+@Dao
+interface UserDao {
+    @Insert
+    fun insert(user: User)
+
+    @Update
+    fun update(user: User)
+
+    @Delete
+    fun delete(user: User)
+
+    @Query("SELECT * FROM users")
+    fun getAllUsers(): List<User>
+}
+
+
+*******UserDao interface********
+
+
+
+******Create a RoomDatabase class*******
+import androidx.room.Database
+import androidx.room.RoomDatabase
+
+@Database(entities = [User::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+}
+
+******RoomDatabase class DONE*******
+
+*****Initialize the Room database in your application class****
+
+import android.app.Application
+import androidx.room.Room
+
+class MyApp : Application() {
+    companion object {
+        lateinit var database: AppDatabase
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "my_database"
+        ).build()
+    }
+}
+
+****Room database application class DONE************
+
+
+*****Sign Up Activity******
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+class SignUpActivity : AppCompatActivity() {
+    private lateinit var firstNameEditText: EditText
+    private lateinit var lastNameEditText: EditText
+    private lateinit var emailEditText: EditText
+    private lateinit var contactNumberEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var confirmPasswordEditText: EditText
+    private lateinit var signUpButton: Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up)
+
+        firstNameEditText = findViewById(R.id.editTextFirstName)
+        lastNameEditText = findViewById(R.id.editTextLastName)
+        emailEditText = findViewById(R.id.editTextEmail)
+        contactNumberEditText = findViewById(R.id.editTextContactNumber)
+        passwordEditText = findViewById(R.id.editTextPassword)
+        confirmPasswordEditText = findViewById(R.id.editTextConfirmPassword)
+        signUpButton = findViewById(R.id.buttonSignUp)
+
+        signUpButton.setOnClickListener {
+            val firstName = firstNameEditText.text.toString()
+            val lastName = lastNameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val contactNumber = contactNumberEditText.text.toString()
+            val password = passwordEditText.text.toString()
+            val confirmPassword = confirmPasswordEditText.text.toString()
+
+            if (validateInput(firstName, lastName, email, contactNumber, password, confirmPassword)) {
+                val user = User(firstName = firstName, lastName = lastName, email = email, contactNumber = contactNumber, password = password)
+
+                GlobalScope.launch(Dispatchers.IO) {
+                    MyApp.database.userDao().insert(user)
+                }
+
+                // Navigate to the Customer profile page
+                // (implement your navigation logic here)
+            }
+        }
+    }
+
+    private fun validateInput(firstName: String, lastName: String, email: String, contactNumber: String, password: String, confirmPassword: String): Boolean {
+        // Perform your validation logic here
+        if (contactNumber.length < 10) {
+            contactNumberEditText.error = "Contact number should be more than 10 digits."
+            return false
+        }
+
+        if (password != confirmPassword) {
+            confirmPasswordEditText.error = "Passwords do not match."
+            return false
+        }
+
+        // Add more validation rules if needed
+
+        return true
+    }
+}
+***********Sign Up DONE**************
+
+****Sign Up Test***
+class SignUpActivityUnitTest {
+
+    @Test
+    fun validateInput_validData_returnsTrue() {
+        val firstName = "John"
+        val lastName = "Doe"
+        val email = "john.doe@example.com"
+        val contactNumber = "1234567890"
+        val password = "password"
+        val confirmPassword = "password"
+
+        val signUpActivity = SignUpActivity()
+
+        val isValid = signUpActivity.validateInput(
+            firstName,
+            lastName,
+            email,
+            contactNumber,
+            password,
+            confirmPassword
+        )
+
+        assertTrue(isValid)
+    }
+
+    }
+
+
+*******Sign Up Test DONE********
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </code>
     </pre>
 </body>
