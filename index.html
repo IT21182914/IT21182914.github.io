@@ -10,6 +10,223 @@
     <pre>
 
 <code>
+
+<!-- ------Member methods-----
+    
+CREATE TYPE BODY Menu_Type AS
+MEMBER FUNCTION
+priceInYen (rate FLOAT)
+RETURN FLOAT IS
+  BEGIN
+      RETURN rate * SELF.price;
+  END;
+
+End;
+/
+
+
+
+
+    
+CREATE OR REPLACE TYPE BODY Menu_Type AS
+MEMBER FUNCTION
+priceInYen (rate FLOAT)
+RETURN FLOAT IS
+    BEGIN
+        RETURN rate * SELF.price;
+    END priceInYen;
+MEMBER FUNCTION
+priceInUSD(rate FLOAT)
+RETURN FLOAT IS
+   BEGIN
+      RETURN rate * SELF.price;
+   END priceInUSD;
+END;
+/
+
+
+
+
+
+Alter type stock_t
+Add MEMBER FUNCTION
+stockyeild
+RETURN FLOAT
+CASCADE;\
+
+CREATE OR REPLACE TYPE BODY stock_t AS
+MEMBER FUNCTION
+stockyeild
+RETURN FLOAT IS
+  BEGIN
+    RETURN ((SELF.LASTDIVIDEND/ SELF.CURRENTPRICE)*100);
+  END;
+END;
+/
+
+
+SELECT s.stockyeild()
+FROM Stocks s;
+
+
+
+
+
+
+
+ ALTER TYPE stock_t
+ADD MEMBER FUNCTION
+priceInUSD(rate IN FLOAT)
+RETURN FLOAT
+CASCADE;
+
+CREATE OR REPLACE TYPE BODY stock_t AS
+MEMBER FUNCTION
+stockyeild
+RETURN FLOAT IS
+  BEGIN
+    RETURN ((SELF.LASTDIVIDEND/ SELF.CURRENTPRICE)*100);
+  END stockyeild;
+MEMBER FUNCTION
+priceInUSD(rate IN FLOAT)
+RETURN FLOAT IS
+BEGIN
+RETURN (SELF.CURRENTPRICE * rate);
+END priceInUSD;
+END;
+
+
+SELECT s.stockyeild() "YEILD PRICE", s.priceINUSD(100) "USD PRICE"
+FROM Stocks s;   
+
+
+
+
+ ALTER TYPE client_t
+DROP MEMBER FUNCTION
+purchaseValue
+RETURN FLOAT
+CASCADE;
+
+ALTER TYPE client_t
+ADD MEMBER FUNCTION
+purchaseValue
+RETURN FLOAT
+CASCADE;
+
+CREATE OR REPLACE TYPE BODY client_t AS
+MEMBER FUNCTION
+purchaseValue
+RETURN FLOAT IS
+res FLOAT;
+BEGIN
+
+SELECT sum(i.PURCHASEPRICE * i.QTY) INTO res
+FROM TABLE(SELF.INVESTMENTS) i;
+
+RETURN (res);
+END;
+END;
+/
+
+
+
+SELECT c.name, c.purchaseValue() "Purchase val"
+FROM clients c;   
+    
+------END member methods-----
+
+------XML FLOWR-----
+
+--FLOWR Expressions
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						return $x') 
+FROM AdminDocs
+WHERE id=6
+
+
+
+
+
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						where $x > 500
+						return $x') 
+FROM AdminDocs
+WHERE id=6
+
+
+
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						where $x > 500
+						return (<Item>{$x}</Item>)') --we can format the output
+FROM AdminDocs
+WHERE id=6
+
+
+
+
+
+
+
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						where $x > 500
+						return (<Item>{data($x)}</Item>)')
+FROM AdminDocs
+WHERE id=6
+
+
+
+
+
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						return if ($x > 500)
+						then <book> {$x} </book>
+						else <paper>{$x}</paper>')
+FROM AdminDocs
+WHERE id=6
+
+
+
+
+ SELECT id, xDoc.query('for $prod in //product
+                        let $x := $prod/number
+						return if ($x > 500)
+						then <book> {data($x)} </book>
+						else <paper>{data($x)}</paper>')
+FROM AdminDocs
+WHERE id=6
+
+-----END XML FLOWR----     
+
+-----UPDATE AND DELETE----
+
+UPDATE TABLE(SELECT INVESTMENTS FROM clients c WHERE c.name = 'Jhon Smith') i
+SET i.qty = 9000
+where i.company.company ='IBM'and i.datet > TO_DATE('2022-10-4', 'YYYY-MM-DD');
+
+DELETE TABLE(SELECT INVESTMENTS FROM clients c WHERE c.name = 'Jhon Smith') i
+WHERE i.qty = 8000;
+
+SELECT *
+FROM TABLE(SELECT INVESTMENTS FROM clients c WHERE c.name = 'Jhon Smith') i;
+    
+
+----END UPDATE AND DELETE---- -->
 </code>
     </pre>
 </body>
