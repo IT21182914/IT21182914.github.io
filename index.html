@@ -11,8 +11,25 @@
 
 <code>
 
-<!-- ------Member methods-----
-    
+<!-- -----VARRY AND NESTED---
+
+	SELECT VALUE(s) 
+FROM person_tab s 
+WHERE VALUE(s) IS OF (ONLY student_type); 
+
+
+	SELECT VALUE(s) 
+    FROM person_tab s 
+    WHERE VALUE(s) IS OF (Student_type);
+
+
+CREATE TYPE invesment_nested_table AS TABLE OF invesment_type
+/
+
+CREATE TYPE exchanges_varray AS VARRAY(3)
+OF VARCHAR2(40)
+/	 -->
+   <!-- ------Member methods----- 
 CREATE TYPE BODY Menu_Type AS
 MEMBER FUNCTION
 priceInYen (rate FLOAT)
